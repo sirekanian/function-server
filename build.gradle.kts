@@ -28,6 +28,14 @@ kotlin {
     jvmToolchain(11)
 }
 
+tasks {
+    test {
+        testLogging {
+            showStandardStreams = true
+        }
+    }
+}
+
 application {
     mainClass.set("org.sirekanyan.fun.server.Main")
 }

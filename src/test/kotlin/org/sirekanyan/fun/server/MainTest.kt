@@ -4,6 +4,7 @@ import io.ktor.client.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
@@ -43,6 +44,7 @@ class MainTest {
                     sendSerialized(Unit)
                 }
             }
+            delay(1000)
             launch {
                 client.webSocket(HttpMethod.Get, HOST, PORT, "sync") {
                     sendSerialized("777")
