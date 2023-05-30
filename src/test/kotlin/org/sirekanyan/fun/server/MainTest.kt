@@ -12,8 +12,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.sirekanyan.`fun`.server.model.Hello
 
-private const val HOST = "localhost"
-private const val PORT = 8888
+private val isProduction = System.getProperty("funEnvironment") == "production"
+private val HOST = if (isProduction) "fun.sirekanyan.org" else "localhost"
+private val PORT = if (isProduction) 8020 else 8888
+
 private val client = HttpClient {
     install(WebSockets) {
         contentConverter = KotlinxWebsocketSerializationConverter(Json)

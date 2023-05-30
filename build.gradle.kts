@@ -33,6 +33,9 @@ tasks {
         testLogging {
             showStandardStreams = true
         }
+        if (project.hasProperty("production")) {
+            systemProperty("funEnvironment", "production")
+        }
     }
 }
 
