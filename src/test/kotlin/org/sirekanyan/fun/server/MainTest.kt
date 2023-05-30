@@ -37,17 +37,17 @@ class MainTest {
         runBlocking {
             launch {
                 client.webSocket(HttpMethod.Get, HOST, PORT, "sync") {
-                    sendSerialized(123)
-                    assertEquals(Hello(123, "How are you?"), receiveDeserialized<Hello>())
-                    sendSerialized(Hello(777, "I'm fine."))
+                    sendSerialized("123")
+                    assertEquals(Hello("777", "123", "How are you?"), receiveDeserialized<Hello>())
+                    sendSerialized(Hello("123", "777", "I'm fine."))
                     sendSerialized(Unit)
                 }
             }
             launch {
                 client.webSocket(HttpMethod.Get, HOST, PORT, "sync") {
-                    sendSerialized(777)
-                    sendSerialized(Hello(123, "How are you?"))
-                    assertEquals(Hello(777, "I'm fine."), receiveDeserialized<Hello>())
+                    sendSerialized("777")
+                    sendSerialized(Hello("777", "123", "How are you?"))
+                    assertEquals(Hello("123", "777", "I'm fine."), receiveDeserialized<Hello>())
                     sendSerialized(Unit)
                 }
             }

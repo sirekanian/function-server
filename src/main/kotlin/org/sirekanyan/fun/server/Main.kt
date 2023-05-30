@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 import org.sirekanyan.`fun`.server.model.Hello
 import java.util.concurrent.ConcurrentHashMap
 
-private val sessions = ConcurrentHashMap<Int, WebSocketServerSession>()
+private val sessions = ConcurrentHashMap<String, WebSocketServerSession>()
 
 fun main() {
     embeddedServer(Netty, port = 8888) {
@@ -26,7 +26,7 @@ fun main() {
                 sendSerialized("pong")
             }
             webSocket("sync") {
-                val id = receiveDeserialized<Int>()
+                val id = receiveDeserialized<String>()
                 sessions[id] = this
                 val hello = receiveDeserialized<Hello>()
                 sessions.getValue(hello.to).sendSerialized(hello)
